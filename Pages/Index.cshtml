@@ -1,0 +1,23 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout";
+}
+<div>
+  <label for="originalJsonSelect">Original JSON:</label>
+  <select id="originalJsonSelect">
+    <option value="sample1.json">sample1.json</option>
+    <option value="sample2.json">sample2.json</option>
+  </select>
+
+  <label for="modifiedJsonSelect">Modified JSON:</label>
+  <select id="modifiedJsonSelect">
+    <option value="sample1.json">sample1.json</option>
+    <option value="sample2.json">sample2.json</option>
+  </select>
+
+  <button id="toggleThemeBtn">Toggle Theme</button>
+  <button id="swapBtn">Swap</button>
+</div>
+<div id="diff-editor" style="height:600px;"></div>

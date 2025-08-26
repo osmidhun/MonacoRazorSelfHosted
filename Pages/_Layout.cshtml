@@ -1,0 +1,39 @@
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Monaco JSON Diff</title>
+    <link rel="stylesheet" href="~/lib/monaco-editor/min/vs/editor/editor.main.css" />
+    <style>
+        html, body { height: 100%; margin: 0; }
+        .toolbar {
+            padding: 10px 12px; border-bottom: 1px solid #e5e7eb;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+            display: flex; gap: 12px; align-items: center;
+        }
+        .editor-wrap { height: calc(100% - 50px); }
+        #diff-editor { width: 100%; height: 100%; }
+        .btn { padding: 6px 10px; border: 1px solid #d1d5db; border-radius: 8px; background: #fff; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <strong>Monaco JSON Diff (self-hosted)</strong>
+        <button class="btn" id="toggleThemeBtn">Toggle Theme</button>
+        <button class="btn" id="swapBtn">Swap Left/Right</button>
+    </div>
+
+    <div class="editor-wrap">
+        @RenderBody()
+    </div>
+
+    <!-- Local AMD loader for Monaco -->
+    <script src="~/lib/monaco-editor/min/vs/loader.js"></script>
+    <script src="~/js/diff.js"></script>
+</body>
+</html>

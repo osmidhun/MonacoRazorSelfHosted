@@ -1,0 +1,10 @@
+{
+  "name": "Sample 2",
+  "type": "example",
+  "items": [
+    { "id": 1, "value": "A" },
+    { "id": 2, "value": "C" },
+    { "id": 3, "value": "D" }
+  ]
+}
+

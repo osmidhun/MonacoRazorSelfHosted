@@ -42,6 +42,52 @@ function updateModels(originalFile, modifiedFile) {
   });
 }
 
+function refreshDropdowns() {
+  fetch('/api/json/list')
+    .then(res => res.json())
+    .then(files => {
+      const origSel = document.getElementById('originalJsonSelect');
+      const modSel = document.getElementById('modifiedJsonSelect');
+      [origSel, modSel].forEach(sel => {
+        sel.innerHTML = '';
+        files.forEach(f => {
+          const opt = document.createElement('option');
+          opt.value = f;
+          opt.textContent = f;
+          sel.appendChild(opt);
+        });
+      });
+      // Optionally, update diff view after refresh
+      updateModels(origSel.value, modSel.value);
+    });
+}
+
+document.getElementById('saveJsonBtn').addEventListener('click', function () {
+  const json = document.getElementById('jsonInput').value;
+  let filename = document.getElementById('jsonFilename').value.trim();
+  try {
+    JSON.parse(json);
+  } catch (e) {
+    alert('Invalid JSON!');
+    return;
+  }
+  fetch('/api/json/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ Json: json, Filename: filename })
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert('Saved as ' + data.filename);
+      refreshDropdowns();
+      document.getElementById('jsonInput').value = '';
+      document.getElementById('jsonFilename').value = '';
+    });
+});
+
+// Call refreshDropdowns on page load
+refreshDropdowns();
+
 require(['vs/editor/editor.main'], function () {
   originalModel = monaco.editor.createModel('', 'json');
   modifiedModel = monaco.editor.createModel('', 'json');
